@@ -12,7 +12,6 @@ public class ArrayPartitionI {
     public static int arrayPairSum(int[] nums) {
         Arrays.sort(nums);
         int res = 0;
-        int len = nums.length/2;
         for(int i=0;i<nums.length-1;){
             res += Math.min(nums[i],nums[i+1]);
             i+=2;

@@ -11,45 +11,44 @@ public class SpiralMatrix {
     }
 
     public static List<Integer> spiralOrder(int[][] matrix) {
-        int rows = matrix.length;
-        int column = matrix[0].length;
-        int top = 0, bottom = rows-1, left = 0, right = column-1;
-        int index = 0;
-        List<Integer> result = new ArrayList<>();
-        while((rows*column)>index){
-            if(top>bottom)
-                break;
-            for(int i=left;i<=right;i++){
-                result.add(matrix[top][i]);
-                index++;
+        List<Integer> res = new ArrayList<Integer>();
+        int rmin = 0;
+        int cmin = 0;
+        int rmax = matrix.length-1;
+        int cmax = matrix[0].length-1;
+        
+        int tele = matrix.length*matrix[0].length;
+        
+        while(tele>0){
+//             top wall 
+            for(int i=cmin; i<=cmax && tele>0; i++){
+                res.add(matrix[rmin][i]);
+                tele--;
             }
-            top++;
-
-            if(left>right)
-                break;
-            for(int i=top;i<=bottom;i++){
-                result.add(matrix[i][right]);
-                index++;
+            rmin++;
+            
+//             right wall
+            for(int i=rmin; i<=rmax && tele>0; i++){
+                res.add(matrix[i][cmax]);
+                tele--;
             }
-            right--;
-
-            if(top>bottom)
-                break;
-            for(int i=right;i>=left;i--){
-                result.add(matrix[bottom][i]);
-                index++;
+            cmax--;
+            
+//             bottom wall
+            for(int i = cmax; i>=cmin && tele>0; i--){
+                res.add(matrix[rmax][i]);
+                tele--;
             }
-            bottom--;
-
-            if(left>right)
-                break;
-            for(int i=bottom;i>=top;i--){
-                result.add(matrix[i][left]);
-                index++;
+            rmax--;
+            
+//             left wall 
+            for(int i = rmax; i>=rmin && tele>0; i--){
+                res.add(matrix[i][cmin]);
+                tele--;
             }
-            left++;
+            cmin++;
         }
-        return result;
+        return res;
     }
 }
 
