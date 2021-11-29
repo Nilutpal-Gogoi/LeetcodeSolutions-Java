@@ -14,32 +14,32 @@ public class LongPressedName {
 	}
 	
 	public static boolean longpressed(String name, String typed) {
-		int m = name.length(),n = typed.length();
-		if(n<m)
+		if(name.length() > typed.length()) {
 			return false;
-		int i = 0, j=0;
-		while(i<n && j<n) {
-			char namedChar = name.charAt(i);
-			char typedChar = typed.charAt(j);
-			if(namedChar != typedChar)
-				return false;
-			int namedIndex = i+1;
-			int typedIndex = j+1;
-			while(namedIndex < m && name.charAt(namedIndex) == namedChar) {
-				namedIndex++;
-			}
-			while(typedIndex < n && typed.charAt(typedIndex) == typedChar) {
-				typedIndex++;
-			}
-			if((typedIndex-j) < (namedIndex-i)) {
-				return false;
-			}
-			
-			i = namedIndex;
-			j = typedIndex;
 		}
 		
-		return (i >= m && j >= n);
+		int i = 0;       // name string
+		int j = 0;       // typed string
+		
+		while(i<name.length() && j<typed.length()) {
+			if(name.charAt(i) == typed.charAt(j)) {
+				i++;
+				j++;
+			} else if(0 <= i-1 && name.charAt(i-1) == typed.charAt(j)) {
+				j++;
+			} else {
+				return false;
+			}
+		}
+
+		while(j < typed.length()) {
+			if(typed.charAt(j) != name.charAt(i-1)) {
+				return false;
+			}
+            j++;
+		}
+		
+		return i < name.length() ? false : true;
 	}
 
 }
