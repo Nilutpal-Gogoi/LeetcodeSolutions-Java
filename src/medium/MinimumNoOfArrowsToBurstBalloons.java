@@ -3,44 +3,19 @@ package medium;
 import java.util.*;
 
 public class MinimumNoOfArrowsToBurstBalloons {
-	  class Pair implements Comparable<Pair>{
-	        int st;
-	        int end;
-	        
-	        Pair(int st, int end){
-	            this.st = st;
-	            this.end = end;
-	        }
-	        
-	        public int compareTo(Pair o){
-	            return this.st-o.st;
-	        }
-	    }
 	    public int findMinArrowShots(int[][] points) {
-	    	Pair[] list = new Pair[points.length];
-	        for(int i = 0; i<points.length ; i++){
-	            list[i] = new Pair(points[i][0], points[i][1]);
-	        }
-	        
-	        Arrays.sort(list);
-	        
-	        Stack<Pair> st = new Stack<>();
-	        for(Pair i : list) {
-	        	if(st.size() == 0) {
-	        		st.push(i);
-	        	}else {
-	        		int nst = i.st;
-	        		int nend = i.end;
-	        		int oend = st.peek().end;
-	        		if(nst < oend) {
-	        			if(nend > oend) {
-	        				st.peek().end = nend;
-	        			}
-	        		}else {
-	        			st.push(i);
-	        		}
-	        	}
-	        }
-	        return st.size();
+            Arrays.sort(points, (a,b)-> Integer.compare(a[1],b[1]));
+            int arrow = 1;
+            int reach = points[0][1];
+            for(int i = 1; i<points.length; i++){
+                if(points[i][0] > reach){
+                    arrow++;
+                    reach = points[i][1];
+                }else{
+                    // continue;
+                }
+            }
+            
+            return arrow;
 	    }
 }
