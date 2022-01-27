@@ -1,7 +1,5 @@
 package medium;
 
-import medium.RecoverBST.TreeNode;
-
 public class ValidateBinarySearchTree {
 	public static class TreeNode {
 		int val;
@@ -15,6 +13,8 @@ public class ValidateBinarySearchTree {
 			this.right = right;
 		}
 	}
+	
+	// -------- Approach 1 : Using Max and min ----------------
     public long maxOfBST(TreeNode root){
         if(root == null) return Long.MIN_VALUE;
         
@@ -45,5 +45,32 @@ public class ValidateBinarySearchTree {
         }
         
         return isValidBST(root.left) && isValidBST(root.right);
+    }
+    
+    // ------- Second Approach : Using two pointers ---------
+    public boolean isValidBST2(TreeNode root) {
+    	TreeNode[] pointers = new TreeNode[2];
+    	return validate(root, pointers);
+    }
+    
+    public boolean validate(TreeNode root, TreeNode[] pointers) {
+    	if(root == null) return true;
+    	boolean res = true;
+    	res = validate(root.left, pointers);
+    	if(res == false) {
+    		return false;
+    	}
+    	if(pointers[0] == null) {
+    		pointers[0] = root;
+    	}else {
+    		pointers[1] = root;
+    		if(pointers[0].val >= pointers[1].val) {
+    			return false;
+    		}
+    		pointers[0] = root;
+    	}
+    	
+    	res = validate(root.right, pointers);
+    	return res;
     }
 }
