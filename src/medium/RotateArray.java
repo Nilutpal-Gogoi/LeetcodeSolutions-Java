@@ -10,22 +10,21 @@ public class RotateArray {
         System.out.println(Arrays.toString(arr));
     }
     public static void rotate(int[] nums, int k) {
-        if(k>nums.length){
-            k = k-nums.length;
+        int len = nums.length;
+        while(k>len){
+            k = k-len;
         }
-        reverse(nums, 0, nums.length-k);
-        reverse(nums, nums.length-k, nums.length);
-        reverse(nums, 0, nums.length);
+        flip(nums,0,len-k-1);
+        flip(nums,len-k,nums.length-1);
+        flip(nums,0,nums.length-1);
     }
-
-    public static void reverse(int[] nums, int start, int end){
-        end = end-1;
-        int temp;
-        while(start < end){
-            temp = nums[start];
-            nums[start] = nums[end];
+    
+    public static void flip(int[] nums,int st, int end){
+        while(st<end){
+            int temp = nums[st];
+            nums[st] = nums[end];
             nums[end] = temp;
-            start++;
+            st++;
             end--;
         }
     }
