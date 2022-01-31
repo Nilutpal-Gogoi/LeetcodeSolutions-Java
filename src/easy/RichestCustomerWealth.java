@@ -3,18 +3,16 @@ package easy;
 
 public class RichestCustomerWealth {
     public int maximumWealth(int[][] accounts) {
-        int max_wealth = 0,temp = 0;
-        int noOfCustomers = accounts.length;
-        int noOfBanks = accounts[0].length;
-        for(int i=0;i<noOfCustomers;i++){
-            temp = 0;
-            for(int j=0;j<noOfBanks;j++){
-                temp += accounts[i][j];
+        int max_amount = 0;
+        int row = accounts.length;
+        for(int i = 0; i<row; i++){
+            int sum = 0;
+            int col = accounts[i].length;
+            for(int j = 0;j < col; j++){
+                sum += accounts[i][j];
             }
-            if(temp>max_wealth){
-                max_wealth = temp;
-            }
+            if(sum > max_amount) max_amount = sum;
         }
-        return max_wealth;
+        return max_amount;
     }
 }
